@@ -1,93 +1,26 @@
-import {
-  Button,
-  Flex,
-  Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Text,
-} from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { useState } from "react";
-import { useTasksContext, TaskDetails } from "../context/TasksContext";
+import { Flex, Text } from "@chakra-ui/react";
+import { Draggable } from "react-beautiful-dnd";
+import { useTasksContext } from "../context/TasksContext";
+import { Task } from "./Task";
+import { TaskInput } from "./TaskInput";
 
-export const Tasks = () => {
-  const { tasks, setTasks } = useTasksContext();
-
-  const initialState = {
-    task: "",
-    time: 0,
-  };
-
-  const [newTask, setNewTask] = useState<TaskDetails>(initialState);
-
-  function handleClick(task: TaskDetails) {
-    if (task.task === "" || task.time === 0) {
-      return;
-    }
-    setTasks([...tasks, task]);
-    setNewTask(initialState);
-  }
-
+export const Tasks = (title: string) => {
+  const { tasks } = useTasksContext();
   return (
-    <Flex boxShadow="base" p="5" w="40%" ml="10" flexDir="column">
-      <Flex>
-        <Input
-          size="lg"
-          placeholder="New task"
-          p="0"
-          variant="none"
-          borderBottom="1px"
-          borderRadius="0"
-          value={newTask.task}
-          onChange={(e) =>
-            setNewTask((prevState) => ({
-              ...prevState,
-              task: e.target.value,
-            }))
-          }
-        />
-        <NumberInput
-          step={5}
-          defaultValue={0}
-          min={0}
-          max={600}
-          size="lg"
-          variant="none"
-          w="28"
-          mr="5"
-          value={newTask.time}
-          onChange={(e) =>
-            setNewTask((prevState) => ({
-              ...prevState,
-              time: parseInt(e),
-            }))
-          }
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+    <Flex boxShadow="base" p="10" w="100%" flexDir="column" borderRadius="10px">
+      <Text fontSize="2rem">{title.title}</Text>
+      {title.title === "To do" ? <TaskInput /> : null}
 
-        <Button variant="none" onClick={() => handleClick(newTask)}>
-          <AddIcon />
-        </Button>
-      </Flex>
       <Flex pt="3" flexDir="column">
-        {tasks.map((task) => {
-          return (
-            <Flex py="3" px="2" _hover={{ boxShadow: "base" }}>
-              <Text fontSize="xl">{task.task}</Text>
-              <Text fontSize="xl" ml="auto">
-                {task.time}
-              </Text>
-            </Flex>
-          );
-        })}
+        {tasks.map((task, index) => (
+          <Draggable draggableId={task.id.toString()} index={index} key={task.id.toString()}>
+            {(provided) => (
+              <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                <Task key={task.id} id={task.id} task={task.task} />
+              </div>
+            )}
+          </Draggable>
+        ))}
       </Flex>
     </Flex>
   );
