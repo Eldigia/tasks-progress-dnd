@@ -1,10 +1,11 @@
 import { Flex } from "@chakra-ui/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { Tasks } from "./components/Tasks";
+import { Task } from "./components/Task";
+import { TaskInput } from "./components/TaskInput";
 import { useTasksContext } from "./context/TasksContext";
 
 function App() {
-  const { sections } = useTasksContext();
+  const { data } = useTasksContext();
 
   const onDragEnd = (result) => {
     // const { tasks, setTasks } = useTasksContext();
@@ -50,11 +51,20 @@ function App() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Flex m="10">
-        {sections.map((section) => (
-          <Droppable key={section.id} droppableId={section.id.toString()}>
+        {data.map((section, sectionIndex) => (
+          <Droppable droppableId={sectionIndex.toString()} key={section.name}>
             {(provided) => (
               <Flex {...provided.droppableProps} ref={provided.innerRef} m="5" w="100%">
-                <Tasks title={section.title} />
+                <Flex boxShadow="base" p="10" w="100%" flexDir="column" borderRadius="10px">
+                  <Flex>{section.name}</Flex>
+                  {section.name === "To do" ? <TaskInput /> : null}
+
+                  <Flex pt="3" flexDir="column">
+                    {section.items.map((data, dataIndex) => (
+                      <Task key={data.id} index={dataIndex} id={data.id} task={data.task} />
+                    ))}
+                  </Flex>
+                </Flex>
                 {provided.placeholder}
               </Flex>
             )}
