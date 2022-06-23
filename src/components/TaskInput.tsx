@@ -10,7 +10,7 @@ export const TaskInput = () => {
 
   function getNewId() {
     let n = newId + 1;
-    return setNewId(n);
+    setNewId(n);
   }
 
   const initialState = {
@@ -24,7 +24,9 @@ export const TaskInput = () => {
     if (task.task === "") {
       return;
     }
-    setData([...data, data[0].items.task]);
+    let newData = [...data];
+    newData[0].items.push(task);
+    setData(newData);
     getNewId();
     setNewTask(initialState);
   }
