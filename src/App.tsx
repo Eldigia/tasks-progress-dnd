@@ -5,48 +5,26 @@ import { TaskInput } from "./components/TaskInput";
 import { useTasksContext } from "./context/TasksContext";
 
 function App() {
-  const { data } = useTasksContext();
+  const { data, setData } = useTasksContext();
 
   const onDragEnd = (result: DropResult) => {
     console.log(result);
-    // const { tasks, setTasks } = useTasksContext();
-    // const { destination, source, draggableId } = result;
-    // if (!destination) {
-    //   return;
-    // }
-    // if (destination.droppableId === source.droppableId && destination.index === source.index) {
-    //   return;
-    // }
-    // const sourceColIndex = tasks.findIndex((e) => e.id === source.droppableId);
-    // const destinationColIndex = tasks.findIndex((e) => e.id === destination.droppableId);
-    // const sourceCol = tasks[sourceColIndex];
-    // const destinationCol = tasks[destinationColIndex];
-    // {
-    //   console.log(sourceCol);
-    // }
-    // const sourceTask = [...sourceCol.id];
-    // const destinationTask = [...destinationCol.task];
-    // const [removed] = sourceTask.splice(source.index, 1);
-    // destinationTask.splice(destination.index, 0, removed);
-    // tasks[sourceColIndex].task = sourceTask;
-    // tasks[destinationColIndex].task = destinationTask;
-    // setTasks(tasks);
-    // const column = this.state.columns[source.droppableId];
-    // const newTaskIds = Array.from(column.taskIds);
-    // newTaskIds.splice(source.index, 1);
-    // newTaskIds.splice(destination.index, 0, draggableId);
-    // const newColumn = {
-    //   ...column,
-    //   taskIds: newTaskIds,
-    // };
-    // const newState = {
-    //   ...this.state,
-    //   columns: {
-    //     ...this.state.columns,
-    //     [newColumn.id]: newColumn,
-    //   },
-    // };
-    // this.setState(newState);
+    const { destination, source } = result;
+    if (!destination) {
+      return;
+    }
+    let column = source.droppableId;
+    let destinationColumn = destination.droppableId;
+    let row = source.index;
+    let destinationRow = destination.index;
+    if (destinationColumn === column && destinationRow === row) {
+      return;
+    }
+    let newData = [...data];
+    let dragItem = newData[parseInt(column)].items[row];
+    newData[parseInt(column)].items.splice(row, 1);
+    newData[parseInt(destinationColumn)].items.splice(destinationRow, 0, dragItem);
+    setData(newData);
   };
 
   return (
