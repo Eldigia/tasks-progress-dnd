@@ -37,6 +37,7 @@ function App() {
                 ref={provided.innerRef}
                 m="5"
                 w="100%"
+                h="fit-content"
                 bgGradient="linear(to-tl, #161F33, #103457 )"
                 borderRadius="30px"
               >
