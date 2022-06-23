@@ -35,7 +35,6 @@ export const TaskInput = () => {
         placeholder="New task"
         variant="none"
         mr="2"
-        borderBottom="1px"
         borderRadius="20"
         color="#A043ED"
         fontWeight="semibold"

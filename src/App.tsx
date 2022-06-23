@@ -41,7 +41,7 @@ function App() {
                 bgGradient="linear(to-tl, #161F33, #103457 )"
                 borderRadius="30px"
               >
-                <Flex boxShadow="base" m={{ base: "5", md: "9" }} w="100%" flexDir="column">
+                <Flex m={{ base: "5", md: "9" }} w="100%" flexDir="column">
                   <Flex>
                     <Text color="white" fontSize="2rem" fontWeight="bold">
                       {section.name}
