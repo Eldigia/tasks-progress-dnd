@@ -30,7 +30,7 @@ export const TaskInput = () => {
   }
 
   return (
-    <Flex>
+    <Flex mt="2">
       {}
       <Input
         size="lg"

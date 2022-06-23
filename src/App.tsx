@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Task } from "./components/Task";
 import { TaskInput } from "./components/TaskInput";
@@ -59,12 +59,15 @@ function App() {
                 ref={provided.innerRef}
                 m="5"
                 w="100%"
-                // bg="lightDark"
                 bgGradient="linear(to-tl, #161F33, #103457 )"
                 borderRadius="30px"
               >
                 <Flex boxShadow="base" p="9" w="100%" flexDir="column">
-                  <Flex color="white">{section.name}</Flex>
+                  <Flex>
+                    <Text color="white" fontSize="2rem" fontWeight="bold">
+                      {section.name}
+                    </Text>
+                  </Flex>
                   {section.name === "To do" ? <TaskInput /> : null}
 
                   <Flex pt="3" flexDir="column">
