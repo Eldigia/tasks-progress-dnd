@@ -1,39 +1,34 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Button, Flex, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { TaskDetails, useTasksContext } from "../context/TasksContext";
+import { useTasksContext } from "../context/TasksContext";
 
 export const TaskInput = () => {
   const { data, setData } = useTasksContext();
 
-  const [newId, setNewId] = useState(6);
+  const initialState = "";
 
-  function getNewId() {
-    let n = newId + 1;
-    setNewId(n);
+  const [newTask, setNewTask] = useState<string>(initialState);
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key !== "Enter") {
+      return;
+    }
+    handleClick(newTask);
   }
 
-  const initialState = {
-    task: "",
-    id: 0,
-  };
-
-  const [newTask, setNewTask] = useState<TaskDetails>(initialState);
-
-  function handleClick(task: TaskDetails) {
-    if (task.task === "") {
+  function handleClick(task: string) {
+    if (task === "") {
       return;
     }
     let newData = [...data];
-    newData[0].items.push(task);
+    newData[0].items.push({ task, id: Math.round(Math.random() * 1000) });
     setData(newData);
-    getNewId();
     setNewTask(initialState);
   }
 
   return (
     <Flex mt="2">
-      {}
       <Input
         size="lg"
         bg="white"
@@ -44,14 +39,9 @@ export const TaskInput = () => {
         borderRadius="20"
         color="#A043ED"
         fontWeight="semibold"
-        value={newTask.task}
-        onChange={(e) =>
-          setNewTask((prevState) => ({
-            ...prevState,
-            task: e.target.value,
-            id: newId,
-          }))
-        }
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <Button
         variant="none"
