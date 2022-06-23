@@ -50,7 +50,7 @@ function App() {
 
                   <Flex pt="3" flexDir="column">
                     {section.items.map((data, dataIndex) => (
-                      <Task key={data.id} index={dataIndex} id={data.id} task={data.task} />
+                      <Task columnId={sectionIndex} key={data.id} index={dataIndex} id={data.id} task={data.task} />
                     ))}
                     {provided.placeholder}
                   </Flex>

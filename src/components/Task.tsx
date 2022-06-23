@@ -2,13 +2,21 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { TaskDetails } from "../context/TasksContext";
+import { TaskDetails, useTasksContext } from "../context/TasksContext";
 
 type Props = TaskDetails & {
   index: number;
+  columnId: number;
 };
 
-export const Task = ({ task, id, index }: Props) => {
+export const Task = ({ task, id, index, columnId }: Props) => {
+  const { data, setData } = useTasksContext();
+  function handleClick() {
+    let newData = [...data];
+    newData[columnId].items.splice(index, 1);
+    setData(newData);
+  }
+
   return (
     <Draggable draggableId={id.toString()} index={index} key={id.toString()}>
       {(provided) => (
@@ -28,7 +36,13 @@ export const Task = ({ task, id, index }: Props) => {
             <Text fontSize="xl" fontWeight="semibold">
               {task}
             </Text>
-            <Button bg="none" ml="auto" _hover={{ bg: "none", color: "black" }} _active={{ bg: "none" }}>
+            <Button
+              bg="none"
+              ml="auto"
+              _hover={{ bg: "none", color: "lightDark" }}
+              _active={{ bg: "none" }}
+              onClick={handleClick}
+            >
               <CloseIcon />
             </Button>
           </Flex>
