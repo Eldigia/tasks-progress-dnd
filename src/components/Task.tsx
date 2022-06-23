@@ -15,7 +15,7 @@ export const Task = ({ task, id, index }: Props) => {
           <Flex
             key={id}
             py="3"
-            px="2"
+            px="4"
             my="2"
             color="white"
             bgGradient="linear(to-l, #A043ED, #29A2D3 )"
@@ -23,7 +23,9 @@ export const Task = ({ task, id, index }: Props) => {
             _hover={{ boxShadow: "base" }}
             _active={{ boxShadow: "base", backgroundColor: "white" }}
           >
-            <Text fontSize="xl">{task}</Text>
+            <Text fontSize="xl" fontWeight="semibold">
+              {task}
+            </Text>
           </Flex>
         </div>
       )}

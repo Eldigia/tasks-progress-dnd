@@ -40,6 +40,8 @@ export const TaskInput = () => {
         mr="2"
         borderBottom="1px"
         borderRadius="20"
+        color="#A043ED"
+        fontWeight="semibold"
         value={newTask.task}
         onChange={(e) =>
           setNewTask((prevState) => ({
