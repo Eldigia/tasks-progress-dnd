@@ -8,7 +8,6 @@ function App() {
   const { data, setData } = useTasksContext();
 
   const onDragEnd = (result: DropResult) => {
-    console.log(result);
     const { destination, source } = result;
     if (!destination) {
       return;

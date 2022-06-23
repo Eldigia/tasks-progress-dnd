@@ -50,6 +50,7 @@ export const TaskInput = () => {
         borderRadius="25"
         h="100%"
         minW="48px"
+        _hover={{ color: "black" }}
         onClick={() => handleClick(newTask)}
       >
         <AddIcon />
