@@ -12,4 +12,9 @@ const colors = {
   lightDark: "#1A1C1E",
 };
 
-export const theme = extendTheme({ styles, colors });
+const breakpoints = {
+  sm: "800",
+  md: "1200",
+};
+
+export const theme = extendTheme({ styles, colors, breakpoints });

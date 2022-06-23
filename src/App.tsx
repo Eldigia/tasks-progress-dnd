@@ -28,20 +28,20 @@ function App() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Flex m="10">
+      <Flex m={{ base: "2", md: "10" }} flexDir={{ base: "column", sm: "row" }}>
         {data.map((section, sectionIndex) => (
           <Droppable droppableId={sectionIndex.toString()} key={section.name}>
             {(provided) => (
               <Flex
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                m="5"
+                m={{ base: "2", md: "5" }}
                 w="100%"
                 h="fit-content"
                 bgGradient="linear(to-tl, #161F33, #103457 )"
                 borderRadius="30px"
               >
-                <Flex boxShadow="base" p="9" w="100%" flexDir="column">
+                <Flex boxShadow="base" m={{ base: "5", md: "9" }} w="100%" flexDir="column">
                   <Flex>
                     <Text color="white" fontSize="2rem" fontWeight="bold">
                       {section.name}
@@ -49,7 +49,7 @@ function App() {
                   </Flex>
                   {section.name === "To do" ? <TaskInput /> : null}
 
-                  <Flex pt="3" flexDir="column">
+                  <Flex mt="3" flexDir="column">
                     {section.items.map((data, dataIndex) => (
                       <Task columnId={sectionIndex} key={data.id} index={dataIndex} id={data.id} task={data.task} />
                     ))}
