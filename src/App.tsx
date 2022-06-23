@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { Task } from "./components/Task";
 import { TaskInput } from "./components/TaskInput";
 import { useTasksContext } from "./context/TasksContext";
@@ -7,7 +7,8 @@ import { useTasksContext } from "./context/TasksContext";
 function App() {
   const { data } = useTasksContext();
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: DropResult) => {
+    console.log(result);
     // const { tasks, setTasks } = useTasksContext();
     // const { destination, source, draggableId } = result;
     // if (!destination) {
@@ -74,9 +75,9 @@ function App() {
                     {section.items.map((data, dataIndex) => (
                       <Task key={data.id} index={dataIndex} id={data.id} task={data.task} />
                     ))}
+                    {provided.placeholder}
                   </Flex>
                 </Flex>
-                {provided.placeholder}
               </Flex>
             )}
           </Droppable>
