@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { TaskDetails, useTasksContext } from "../context/TasksContext";
 
 export const TaskInput = () => {
-  const { tasks, setTasks } = useTasksContext();
+  const { data, setData } = useTasksContext();
 
-  const [newId, setNewId] = useState(3);
+  const [newId, setNewId] = useState(6);
 
   function getNewId() {
     let n = newId + 1;
@@ -24,7 +24,7 @@ export const TaskInput = () => {
     if (task.task === "") {
       return;
     }
-    setTasks([...tasks, task]);
+    setData([...data, data[0].items.task]);
     getNewId();
     setNewTask(initialState);
   }
@@ -34,11 +34,12 @@ export const TaskInput = () => {
       {}
       <Input
         size="lg"
+        bg="white"
         placeholder="New task"
-        p="0"
         variant="none"
+        mr="2"
         borderBottom="1px"
-        borderRadius="0"
+        borderRadius="20"
         value={newTask.task}
         onChange={(e) =>
           setNewTask((prevState) => ({
@@ -48,7 +49,15 @@ export const TaskInput = () => {
           }))
         }
       />
-      <Button variant="none" onClick={() => handleClick(newTask)}>
+      <Button
+        variant="none"
+        color="white"
+        bgGradient="linear(to-l, #A043ED, #29A2D3 )"
+        borderRadius="25"
+        h="100%"
+        minW="48px"
+        onClick={() => handleClick(newTask)}
+      >
         <AddIcon />
       </Button>
     </Flex>
