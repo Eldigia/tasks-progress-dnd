@@ -28,14 +28,15 @@ function App() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Flex m={{ base: "2", md: "10" }} flexDir={{ base: "column", sm: "row" }}>
+      <Flex m={{ base: "2", md: "5" }} flexDir={{ base: "column", sm: "row" }}>
         {data.map((section, sectionIndex) => (
           <Droppable droppableId={sectionIndex.toString()} key={section.name}>
             {(provided) => (
               <Flex
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                m={{ base: "2", md: "5" }}
+                mx={{ base: "0", sm: "1", md: "3" }}
+                my={{ base: "2", md: "5" }}
                 w="100%"
                 h="fit-content"
                 bgGradient="linear(to-tl, #161F33, #103457 )"
